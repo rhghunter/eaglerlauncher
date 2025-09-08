@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eaglercraft Launcher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="logo/logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #f0f0f0;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .client-list {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .client-list h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .search-box button {
+            padding: 12px 15px;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .clients {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .client-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .client-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+        }
+
+        .client-card.selected {
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid #4CAF50;
+            transform: translateY(-5px);
+        }
+
+        .client-card i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .client-card h3 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .client-card p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .client-details {
+            flex: 2;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .client-details h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .client-info {
+            margin-bottom: 25px;
+        }
+
+        .client-info p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .file-info {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .file-info h4 {
+            margin-bottom: 10px;
+            color: #4CAF50;
+        }
+
+        .file-path {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px;
+            border-radius: 4px;
+            word-break: break-all;
+        }
+
+        .launch-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .launch-button {
+            padding: 15px 40px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .launch-button:hover {
+            background: #3e8e41;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        }
+
+        .launch-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #2c3e50;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-confirm {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .modal-cancel {
+            background: #e74c3c;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 20px;
+            }
+        }
+
+        .btn-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .transparent-btn {
+            display: inline-block;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transparent-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .transparent-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .transparent-btn:hover::after {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Eaglercraft Launcher</h1>
+            <p>Select your preferred client from the list below. Click on a client to view details and launch.</p>
+        </header>
+
+        <div class="content">
+            <div class="client-list">
+                <h2>Available Clients</h2>
+                <div class="search-box">
+                    <input type="text" placeholder="Search clients..." id="searchInput">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                <div class="clients" id="clientList">
+                    <!-- Client cards will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="client-details">
+                <h2>Client Details</h2>
+                <div class="client-info" id="clientInfo">
+                    <p>Select a client from the list to view details.</p>
+                </div>
+                <div class="launch-section">
+                    <button class="launch-button" id="launchButton" disabled>Launch Client</button>
+                </div>
+            </div>
+        </div>
+        <div class="btn-container">
+            <a href="servers/index.html" class="transparent-btn">Servers</a>
+        </div>
+
+        <footer>
+            <p>Eaglercraft Launcher &copy; 2025 | Designed for Minecraft enthusiasts</p>
+        </footer>
+        <h3>THIS IS NOT A LAUNCHER MADE BY THE CREATORS OF EAGLERCRAFT. THIS IS AN UNOFFICIAL LAUNCHER FOR EAGLERCRAFT.</h3>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <h2>Confirm Launch</h2>
+            <p>You are about to launch: <span id="modalClientName"></span></p>
+            <p>The game will open in a new tab.</p>
+            <div class="modal-buttons">
+                <button class="modal-button modal-confirm" id="modalConfirm">Launch</button>
+                <button class="modal-button modal-cancel" id="modalCancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Client data with HTML file paths
+        const clients = [
+            {
+                id: 1,
+                name: "Eaglercraft 1.5.2",
+                version: "1.5.2",
+                description: "Just Minecraft 1.5.2 (is not very optimized)",
+                features: ["Limited Multiplayer Support", "Texture Packs"],
+                icon: "fa-gamepad",
+                htmlFile: "clients/1.5.2.html"
+            },
+            {
+                id: 2,
+                name: "Eaglercraft 1.8 (WASM)",
+                version: "1.8.8",
+                description: "The most stable version of Eaglercraft with excellent performance and compatibility. Perfect for older systems and reliable gameplay.",
+                features: ["Multiplayer Support", "Texture Packs", "Stable Performance", "Better Performance"],
+                icon: "fa-gamepad",
+                htmlFile: "clients/1.8-wasm.html"
+            },
+            {
+                id: 3,
+                name: "Eaglercraft 1.8 (JS)",
+                version: "1.8.8",
+                description: "he most stable version of Eaglercraft with excellent performance and compatibility. Perfect for older systems and reliable gameplay.",
+                features: ["Multiplayer Support", "Texture Packs", "Stable Performance", "Lower Performance"],
+                icon: "fa-gamepad",
+                htmlFile: "clients/1.8-js.html"
+            },
+            {
+                id: 4,
+                name: "Eaglercraft 1.12 (WASM)",
+                version: "1.12.2",
+                description: "Enhanced version with more features and improved graphics. Includes additional blocks and entities from later Minecraft updates.",
+                features: ["More Blocks", "Better Mobs", "Enhanced Graphics", "Combat Update", "Multiplayer Support", "Texture Packs", "Stable Performance", "Better Performance"],
+                icon: "fa-gamepad",
+                htmlFile: "clients/1.12-wasm.html"
+            },
+            {
+                id: 5,
+                name: "Eaglercraft 1.12 (JS)",
+                version: "1.12.2",
+                description: "Enhanced version with more features and improved graphics. Includes additional blocks and entities from later Minecraft updates.",
+                features: ["More Blocks", "Better Mobs", "Enhanced Graphics", "Combat Update", "Multiplayer Support", "Texture Packs", "Stable Performance", "Lower Performance"],
+                icon: "fa-gamepad",
+                htmlFile: "clients/1.12-js.html"
+            },
+            {
+                id: 6,
+                name: "Astra Client (WASM)",
+                version: "1.6.0",
+                description: "Astra client is a PvP client that is well optimized in every way.",
+                features: ["1.8 Features", "Mods", "Easy To Use UI", "Cosmetics","Better Performance"],
+                icon: "fa-exclamation-triangle",
+                htmlFile: "clients/astra-wasm.html"
+            },
+            {
+                id: 7,
+                name: "Astra Client (JS)",
+                version: "1.6.0",
+                description: "Astra client is a PvP client that is well optimized in every way.",
+                features: ["1.8 Features", "Mods", "Easy To Use UI", "Cosmetics", "Lower Performance"],
+                icon: "fa-exclamation-triangle",
+                htmlFile: "clients/astra-js.html"
+            },
+            {
+                id: 8,
+                name: "DragonX V3",
+                version: "1.8.8",
+                description: "DragonX Hacked Client is a modified client for the browser-based version of Minecraft known as Eaglercraft. This hacked client includes various features that give players advantages in gameplay.",
+                features: ["1.8 Features", "Easy To Use UI", "Hacks", "Lower Performance"],
+                icon: "fa-dragon",
+                htmlFile: "clients/dragonx.html"
+            },
+            {
+                id: 9,
+                name: "Resent Client",
+                version: "4.0.0",
+                description: "Resent Client is a highly popular and modified client designed specifically for the browser-based version of Minecraft, known as Eaglercraft. It is widely recognized as one of the best PvP (Player vs. Player) clients for enhancing gameplay performance and customization/",
+                features: ["1.8 Features", "Mods", "Easy To Use UI", "Lower Performance"],
+                icon: "fa-history",
+                htmlFile: "clients/resent.html"
+            },
+            {
+                id: 10,
+                name: "Pixel Client 1.8 (WASM)",
+                version: "1.8.8",
+                description: "Pixel Client is a popular and powerful hacked client designed specifically for the browser-based version of Minecraft, known as Eaglercraft. It is built to provide players with a significant edge in multiplayer gameplay, particularly on PvP (Player vs. Player) and anarchy servers, through an extensive suite of cheats, utilities, and customization options.",
+                features: ["1.8 Features", "Mods", "Easy To Use UI", "Better Performance"],
+                icon: "fa-cube",
+                htmlFile: "clients/1.8-pixel-wasm.html"
+            },
+            {
+                id: 11,
+                name: "Pixel Client 1.8 (JS)",
+                version: "1.8.8",
+                description: "Pixel Client is a popular and powerful hacked client designed specifically for the browser-based version of Minecraft, known as Eaglercraft. It is built to provide players with a significant edge in multiplayer gameplay, particularly on PvP (Player vs. Player) and anarchy servers, through an extensive suite of cheats, utilities, and customization options.",
+                features: ["1.8 Features", "Mods", "Easy To Use UI", "Lower Performance"],
+                icon: "fa-cube",
+                htmlFile: "clients/1.8-pixel-js.html"
+            },
+            {
+                id: 12,
+                name: "Pixel Client 1.12 (WASM)",
+                version: "1.12.2",
+                description: "Pixel Client is a popular and powerful hacked client designed specifically for the browser-based version of Minecraft, known as Eaglercraft. It is built to provide players with a significant edge in multiplayer gameplay, particularly on PvP (Player vs. Player) and anarchy servers, through an extensive suite of cheats, utilities, and customization options.",
+                features: ["1.12 Features", "Mods", "Easy To Use UI", "Better Performance"],
+                icon: "fa-cube",
+                htmlFile: "clients/1.12-pixel-wasm.html"
+            },
+            {
+                id: 13,
+                name: "Pixel Client 1.12 (JS)",
+                version: "1.12.2",
+                description: "Pixel Client is a popular and powerful hacked client designed specifically for the browser-based version of Minecraft, known as Eaglercraft. It is built to provide players with a significant edge in multiplayer gameplay, particularly on PvP (Player vs. Player) and anarchy servers, through an extensive suite of cheats, utilities, and customization options.",
+                features: ["1.12 Features", "Mods", "Easy To Use UI", "Lower Performance"],
+                icon: "fa-cube",
+                htmlFile: "clients/1.12-pixel-js.html"
+            },
+            {
+                id: 14,
+                name: "Tuff Client (WASM)",
+                version: "1.12.2",
+                description: "Tuff Client is a modern, feature-rich hacked client designed specifically for the browser-based version of Minecraft, Eaglercraft. It has gained popularity for its stability, user-friendly interface, and powerful array of cheats and utilities tailored for competitive multiplayer, particularly on PvP (Player vs. Player) and anarchy servers.",
+                features: ["1.12 Features", "Mods", "Easy To Use UI", "Better Performance"],
+                icon: "fa-gamepad",
+                htmlFile: "clients/tuff-wasm.html"
+            },
+            {
+                id: 15,
+                name: "Tuff Client (JS)",
+                version: "1.12.2",
+                description: "Tuff Client is a modern, feature-rich hacked client designed specifically for the browser-based version of Minecraft, Eaglercraft. It has gained popularity for its stability, user-friendly interface, and powerful array of cheats and utilities tailored for competitive multiplayer, particularly on PvP (Player vs. Player) and anarchy servers.",
+                features: ["1.12 Features", "Mods", "Easy To Use UI", "Lower Performance"],
+                icon: "fa-gamepad",
+                htmlFile: "clients/tuff-js.html"
+            }
+        ];
+
+        // DOM elements
+        const clientList = document.getElementById('clientList');
+        const clientInfo = document.getElementById('clientInfo');
+        const launchButton = document.getElementById('launchButton');
+        const searchInput = document.getElementById('searchInput');
+        const confirmationModal = document.getElementById('confirmationModal');
+        const modalClientName = document.getElementById('modalClientName');
+        const modalConfirm = document.getElementById('modalConfirm');
+        const modalCancel = document.getElementById('modalCancel');
+
+        let selectedClient = null;
+
+        // Initialize the client list
+        function initClientList() {
+            clients.forEach(client => {
+                const clientCard = document.createElement('div');
+                clientCard.className = 'client-card';
+                clientCard.dataset.id = client.id;
+                
+                clientCard.innerHTML = `
+                    <i class="fas ${client.icon}"></i>
+                    <h3>${client.name}</h3>
+                    <p>v${client.version}</p>
+                `;
+                
+                clientCard.addEventListener('click', () => selectClient(client));
+                clientList.appendChild(clientCard);
+            });
+        }
+
+        // Select a client
+        function selectClient(client) {
+            selectedClient = client;
+            
+            // Update UI to show selected client
+            document.querySelectorAll('.client-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`.client-card[data-id="${client.id}"]`).classList.add('selected');
+            
+            // Update client info
+            clientInfo.innerHTML = `
+                <h3>${client.name} v${client.version}</h3>
+                <p>${client.description}</p>
+                
+                <div class="file-info">
+                    <h4>HTML File:</h4>
+                    <div class="file-path">${client.htmlFile}</div>
+                    <p><small>This file will open when you launch the client</small></p>
+                </div>
+                
+                <h4>Key Features:</h4>
+                <div class="feature-list">
+                    ${client.features.map(feature => `<div class="feature">${feature}</div>`).join('')}
+                </div>
+            `;
+            
+            // Enable launch button
+            launchButton.disabled = false;
+        }
+
+        // Launch functionality
+        launchButton.addEventListener('click', () => {
+            if (selectedClient) {
+                // Show confirmation modal
+                modalClientName.textContent = selectedClient.name;
+                confirmationModal.style.display = 'flex';
+            }
+        });
+
+        // Confirm launch
+        modalConfirm.addEventListener('click', () => {
+            if (selectedClient) {
+                // Close modal
+                confirmationModal.style.display = 'none';
+                
+                // Simulate loading
+                launchButton.textContent = 'Launching...';
+                launchButton.disabled = true;
+                
+                // Open the HTML file in a new tab after a short delay
+                setTimeout(() => {
+                    window.open(selectedClient.htmlFile, '_blank');
+                    
+                    // Reset button after a moment
+                    setTimeout(() => {
+                        launchButton.textContent = 'Launch Client';
+                        launchButton.disabled = false;
+                    }, 2000);
+                }, 1000);
+            }
+        });
+
+        // Cancel launch
+        modalCancel.addEventListener('click', () => {
+            confirmationModal.style.display = 'none';
+        });
+
+        // Search functionality
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            document.querySelectorAll('.client-card').forEach(card => {
+                const clientId = card.dataset.id;
+                const client = clients.find(c => c.id == clientId);
+                const clientName = client.name.toLowerCase();
+                
+                if (clientName.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Close modal if clicked outside
+        window.addEventListener('click', (event) => {
+            if (event.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
+            }
+        });
+
+        // Initialize the page
+        initClientList();
+    </script>
+</body>
+</html>

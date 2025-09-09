@@ -349,6 +349,39 @@
         .transparent-btn:hover::after {
             transform: translateX(100%);
         }
+
+        .problems {
+            text-align: center;
+        }
+
+        .launcher-info {
+            text-align: center;
+        }
+
+        .problems-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        a[href^="mailto:"] {
+            color:darkblue;
+            background-color:transparent;
+            text-decoration: none;
+        }
+
+        a[href^="mailto:"]:visited {
+            color:slateblue;
+            background-color: transparent;
+            text-decoration: none;
+        }
+
+        a[href^="mailto:"]:hover {
+            color:#1a2a6c;
+            background-color: transparent;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -356,6 +389,7 @@
         <header>
             <h1>Eaglercraft Launcher</h1>
             <p>Select your preferred client from the list below. Click on a client to view details and launch.</p>
+            <p>Please support the creators of these clients as they work much harder than I did, for this website, on their amazing clients. I don't take credit for their work and will never take credit for their work.</p>
         </header>
 
         <div class="content">
@@ -382,12 +416,30 @@
         </div>
         <div class="btn-container">
             <a href="servers/index.html" class="transparent-btn">Servers</a>
+            <a href="license/license.html" class="transparent-btn">License</a>
+            <a href="changes/changes.html" class="transparent-btn">Changelog</a>
         </div>
 
         <footer>
             <p>Eaglercraft Launcher &copy; 2025 | Designed for Minecraft enthusiasts</p>
         </footer>
-        <h3>THIS IS NOT A LAUNCHER MADE BY THE CREATORS OF EAGLERCRAFT. THIS IS AN UNOFFICIAL LAUNCHER FOR EAGLERCRAFT.</h3>
+        <div class="problems-card">
+            <div class="problems">
+                <h3>Problems & or suggestions?</h3>
+                <br>
+                <p>Please email me:
+                    <br>
+                    <a href="mailto:rhghunterbusiness@gmail.com">rhghunterbusiness@gmail.com</a>
+                </p>
+            </div>
+            <br>
+            <div class="launcher-info">
+                <h3>THIS IS NOT A LAUNCHER MADE BY THE CREATORS OF EAGLERCRAFT. THIS IS AN UNOFFICIAL LAUNCHER FOR EAGLERCRAFT.</h3>
+                <br>
+                <p>Launcher Version: 1.1</p>
+                <p>Release date of Version: September 9, 2025</p>
+            </div>
+        </div>
     </div>
 
     <!-- Confirmation Modal -->

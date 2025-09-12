@@ -3,225 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eagler Launcher Changelog</title>
+    <title>Eaglercraft Launcher - changelog</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="../logo/logo.png">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
-            color: #fff;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            padding: 20px 0;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            font-size: 3rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-            color: #f0f0f0;
-        }
-
-        .navigation {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .nav-button {
-            padding: 12px 25px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .nav-button:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .change-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .change-header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .change-header h2 {
-            font-size: 2.2rem;
-            color: #4CAF50;
-            margin-bottom: 10px;
-        }
-
-        .change-header p {
-            color: #ddd;
-            font-size: 1.1rem;
-        }
-
-        .change-content {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            padding: 25px;
-            max-height: 500px;
-            overflow-y: auto;
-            line-height: 1.6;
-        }
-
-        .change-content h3 {
-            color: #4CAF50;
-            margin: 20px 0 10px 0;
-            font-size: 1.4rem;
-        }
-
-        .change-content h4 {
-            color: #fdbb2d;
-            margin: 15px 0 8px 0;
-            font-size: 1.2rem;
-        }
-
-        .change-content p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-
-        .change-content ul {
-            margin: 10px 0 15px 20px;
-        }
-
-        .change-content li {
-            margin-bottom: 8px;
-        }
-
-        .signature {
-            margin-top: 30px;
-            text-align: right;
-            font-style: italic;
-            color: #ddd;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding-top: 15px;
-        }
-
-        .copyright {
-            text-align: center;
-            margin-top: 20px;
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Scrollbar styling */
-        .change-content::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .change-content::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-        }
-
-        .change-content::-webkit-scrollbar-thumb {
-            background: rgba(76, 175, 80, 0.5);
-            border-radius: 4px;
-        }
-
-        .change-content::-webkit-scrollbar-thumb:hover {
-            background: rgba(76, 175, 80, 0.7);
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .change-header h2 {
-                font-size: 1.8rem;
-            }
-            
-            .change-container {
-                padding: 20px;
-            }
-            
-            .change-content {
-                padding: 15px;
-            }
-            
-            .navigation {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        .problems-card {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        a[href^="mailto:"] {
-            color:darkblue;
-            background-color:transparent;
-            text-decoration: none;
-        }
-
-        a[href^="mailto:"]:visited {
-            color:slateblue;
-            background-color: transparent;
-            text-decoration: none;
-        }
-
-        a[href^="mailto:"]:hover {
-            color:#1a2a6c;
-            background-color: transparent;
-            text-decoration: underline;
-        }
-    </style>
+    <link href="style.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -231,7 +16,7 @@
         </header>
 
         <div class="navigation">
-            <a href="../EaglerLauncher.html" class="nav-button">
+            <a href="../index.html" class="nav-button">
                 <i class="fas fa-arrow-left"></i> Back to Launcher
             </a>
             <a href="../servers/index.html" class="nav-button">
@@ -239,6 +24,9 @@
             </a>
             <a href="../license/license.html" class="nav-button">
                 <i class="fa fa-user"></i> Terms of Use
+            </a>
+            <a href="../download/download.html" class="nav-button">
+                <i class="fa fa-download"></i> Download
             </a>
         </div>
 
@@ -269,6 +57,21 @@
                     <li>Added Launcher version & release date of that version to all pages</li>
                     <li>Added my email to every page</li>
                 </ul>
+                <br>
+                <h3>V1.2:</h3>
+                <br>
+                <ul>
+                    <li>Separated JavaScript & CSS code from html & put into own files</li>
+                    <li>Fixed description of Servers (click on server card to view more info about server)</li>
+                    <li>Added animations</li>
+                    <li>Implemented some security</li>
+                    <li>Fixed copyright at the bottom of the servers page</li>
+                    <li>I added the button for the downloads page on the Main Launcher</li>
+                    <li>Added download button to every page</li>
+                    <li>Changed the style of the text saying that this is an unofficial Eaglercraft Launcher</li>
+                    <li>Changed location of navigation buttons</li>
+                    <li>Made navigation buttons look better on the Main Launcher page</li>
+                </ul>
 
                 <div class="copyright">
                     <p>© 2025 Eaglercraft Launcher. All rights reserved.</p>
@@ -283,10 +86,10 @@
                 <a href="mailto:rhghunterbusiness@gmail.com">rhghunterbusiness@gmail.com</a>
             </p>
             <br>
-            <h3>THIS IS NOT A LAUNCHER MADE BY EAGLERCRAFT. THIS IS AN UNOFFICIAL LAUNCHER FOR EAGLERCRAFT.</h3>
+            <h3 style="color: red; padding: 10px; border-radius: 8px; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);">THIS IS NOT A LAUNCHER MADE BY EAGLERCRAFT. THIS IS AN UNOFFICIAL LAUNCHER FOR EAGLERCRAFT.</h3>
             <br>
-            <p>Launcher version: 1.1</p>
-            <p>Release date of version: September 9, 2025</p>
+            <p>Launcher version: 1.2</p>
+            <p>Release date of version: September 12, 2025</p>
         </div>
 
         <footer>
@@ -294,38 +97,6 @@
         </footer>
     </div>
 
-    <script>
-        // Simple animation for page elements
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animate the license container on load
-            const licenseContainer = document.querySelector('.license-container');
-            licenseContainer.style.opacity = '0';
-            licenseContainer.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-                licenseContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                licenseContainer.style.opacity = '1';
-                licenseContainer.style.transform = 'translateY(0)';
-            }, 300);
-            
-            // Add click event to navigation buttons for smooth transition
-            const navButtons = document.querySelectorAll('.nav-button');
-            navButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const target = this.getAttribute('href');
-                    
-                    // Animate out
-                    document.body.style.opacity = '0';
-                    document.body.style.transition = 'opacity 0.3s ease';
-                    
-                    // Navigate after animation
-                    setTimeout(() => {
-                        window.location.href = target;
-                    }, 300);
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
